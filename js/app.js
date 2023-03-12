@@ -31,14 +31,24 @@ function searchRepositories() {
 
       if (data.items && data.items.length > 0) {
         data.items.slice(0, 10).forEach((item) => {
+          console.log(item.login);
           const li = document.createElement("li");
           const link = document.createElement("a");
           link.href = item.html_url;
-          link.textContent = item.full_name;
+          link.textContent = item.name;
           link.target = "blank";
 
           li.appendChild(link);
           resultsList.appendChild(li);
+
+          const description = document.createElement("span");
+          description.textContent = item.description;
+
+          li.appendChild(description);
+          const whatchers = document.createElement("span");
+          whatchers.innerHTML = `Просмотры: <b>${item.watchers}</b>`;
+
+          li.appendChild(whatchers);
         });
       } else {
         const li = document.createElement("li");
