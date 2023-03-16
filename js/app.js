@@ -47,7 +47,6 @@ function searchRepositories() {
 
       if (data.items && data.items.length > 0) {
         data.items.slice(0, 10).forEach((item) => {
-          console.log(item.login);
           const li = document.createElement("li");
           const link = document.createElement("a");
           link.href = item.html_url;
