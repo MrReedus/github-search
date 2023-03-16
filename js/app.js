@@ -1,11 +1,9 @@
-// let promise = new Promise(function (resolve, reject) {
-//   // спустя одну секунду будет сообщено, что задача выполнена с ошибкой
-//   setTimeout(() => reject(new Error("Какая то хуйня братан :(")), 1000);
-// });
+const searchInput = document.querySelector(".input-search");
+const searchButton = document.querySelector(".search-btn");
+const resultsList = document.querySelector(".results");
+const inputContainer = document.querySelector(".input-container");
 
-const searchInput = document.querySelector("#search");
-const searchButton = document.querySelector("#search-btn");
-const resultsList = document.querySelector("#results");
+let errorSpan = null;
 
 searchButton.addEventListener("click", searchRepositories);
 searchInput.addEventListener("keypress", (evt) => {
@@ -21,6 +19,24 @@ searchInput.addEventListener("keypress", (evt) => {
 
 function searchRepositories() {
   const query = searchInput.value;
+
+  if (!query.trim()) {
+    if (!errorSpan) {
+      errorSpan = document.createElement("span");
+      errorSpan.classList.add("none");
+      errorSpan.textContent = "Поле должно быть заполнено";
+      searchInput.classList.add("error");
+      inputContainer.appendChild(errorSpan);
+    }
+    return;
+  } else {
+    searchInput.classList.remove("error");
+    if (errorSpan) {
+      inputContainer.removeChild(errorSpan);
+      errorSpan = null;
+    }
+  }
+
   const url = `https://api.github.com/search/repositories?q=${query}`;
 
   fetch(url)
