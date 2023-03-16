@@ -43,7 +43,6 @@ function searchRepositories() {
     .then((response) => response.json())
     .then((data) => {
       resultsList.innerHTML = "";
-      console.log(data);
 
       if (data.items && data.items.length > 0) {
         data.items.slice(0, 10).forEach((item) => {
